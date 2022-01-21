@@ -115,3 +115,20 @@ print ( tukey )
 set.seed(4432)
 
 # Se utiliza la variable es_clon como variable binaria
+Slogico <- ifelse ( data$es_clon == "S" , 1, 0)
+data2 <- cbind( Slogico , data )
+data2$es_clon <- data2$Slogico
+data2$Slogico <- NULL
+
+predictor <- data.frame(c("fuerza", "resistencia", "agilidad"))
+colnames(predictor) <- c("predictor")
+
+# Se crea la muestra de sample size = 400
+muestra_total <- sample_n(data2, size = 400)
+muestra_total[["id"]] <- seq(1:400)
+
+# Se seleccionan los datos para generar el modelo (entrenamiento) y los para
+# probar el modelo (test)
+entrenamiento <- filter(muestra_total, id<321)
+test <- filter(muestra_total, 320<id & id<401)
+
