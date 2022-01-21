@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------------
-#         DESARROLLO DE PEP 2 DE INFERENCIA Y MODELOS ESTADÍSTICOS
+#         DESARROLLO DE PEP 2 DE INFERENCIA Y MODELOS ESTADï¿½STICOS
 #-------------------------------------------------------------------------------
-# Integrantes: 
+# Integrantes: Carlos Castillo        20.201.274-4
 #
 #
 # Seccion: B-2
-# Profesora: Jacqueline Köhler
+# Profesora: Jacqueline Kï¿½hler
 #-------------------------------------------------------------------------------
