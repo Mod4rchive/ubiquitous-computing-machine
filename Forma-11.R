@@ -41,6 +41,8 @@ datos [["oficiales"]] <- factor ( datos [["oficiales"]])
 # HA: Si hay diferencias significativas en los niveles de exigencia de los
 #     distintos oficiales evaluadores.
 
+# Se utiliza alfa = 0.01
+
 # Condiciones de prueba ANOVA
 # 1. La escala con que se mide la variable dependiente tiene las propiedades de 
 # una escala de intervalos iguales: Se mide con números decimales.
@@ -59,8 +61,41 @@ g <- g + rremove ("y.ticks") + rremove ("y.text")
 g <- g + rremove ("axis.title")
 print ( g )
 
-print(shapiro.test(eval_instructor))
-print(shapiro.test(eval_capitan))
-print(shapiro.test(eval_comandante))
-print(shapiro.test(eval_general))
+# Se comprueba que los datos son normales, forman parte del area sombreada del
+# gráfico Q-Q sin valores muy extremos.
+# 
+# 4. La matriz de varianzas-covarianzas es esférica. 
+# 
+prueba <- ezANOVA(data = datos, dv = evaluacion , within = oficiales,
+                  wid = instancia, return_aov = TRUE )
 
+prueba$`Mauchly's Test for Sphericity`
+# La prueba con alfa=0.1 tiene p=0 por lo tanto se cumple que la matriz de 
+# varianzas-covarianzas no es esférica.
+
+# Se puede realizar ANOVA
+# 
+# 
+# Se realiza la prueba ANOVA (prueba)
+
+print(summary(prueba$aov))
+
+# El valor p obtenido en la prueba anova del estadístico F es 3 grados de 
+# significancia menor que el alfa elegido (0.1), por lo tanto se rechaza la
+# hipótesis nula a favor de la alternativa: Si hay diferencias significativas 
+# en los niveles de exigencia de los distintos oficiales evaluadores.
+
+
+# Procedimiento post-hoc HSD de Tukey .
+mixto <- lme ( evaluacion ~ oficiales , data = datos , random = ~1| instancia )
+medias <- emmeans ( mixto , "oficiales")
+tukey <- pairs ( medias , adjust = "tukey")
+
+cat ("\n\ nPrueba HSD de Tukey \n\n")
+print ( tukey )
+
+# Se encuentra que las parejas de aquellos soldados evaluados por capitán-comandante;
+# capitán-general; capitán-instructor son las mas diferentes en método de evaluación.
+# 
+# Con esto podemos concluir que el capitán es el único que se diferencia en 
+# método de evaluación con los demás.
