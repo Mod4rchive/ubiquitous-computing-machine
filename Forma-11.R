@@ -8,6 +8,9 @@
 # Profesora: Jacqueline Kóhler
 #-------------------------------------------------------------------------------
 
+
+############# PREGUNTA 1
+
 # Se ingresa la tabla de datos por medio de GUI
 data <- read.csv2(choose.files(),encoding = "UTF-8", dec=",", sep = ";" );
 
@@ -99,3 +102,16 @@ print ( tukey )
 # 
 # Con esto podemos concluir que el capitán es el único que se diferencia en 
 # método de evaluación con los demás.
+# 
+# 
+# 
+# ################# PREGUNTA 2
+# Se pide realizar una regresión logística para saber si los clones y los reclutas
+# son distinguibles entre ellos; se pide evaluar un modelo clasificador que contemple 3
+# variables predicadoras: fuerza, resistencia y agilidad; se eligieron estas pues
+# son representativas de las habilidades de cada uno.
+# 
+# Se define la semilla para el generador pseudo-aleatorio
+set.seed(4432)
+
+# Se utiliza la variable es_clon como variable binaria
